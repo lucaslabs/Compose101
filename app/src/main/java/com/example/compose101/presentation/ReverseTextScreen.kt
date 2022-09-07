@@ -24,7 +24,7 @@ import com.example.compose101.presentation.theme.Medium
 import com.example.compose101.presentation.theme.Small
 
 @Composable
-fun ReverseTextScreen(viewModel: ReverseTextViewModel = ReverseTextViewModel()) {
+fun ReverseTextScreen(viewModel: ReverseTextViewModel) {
     Column(modifier = Modifier.fillMaxSize()) {
         val reversedTextState: State<String> = viewModel.reversedText.observeAsState("")
 
@@ -85,7 +85,7 @@ fun InputTextListSection(textList: List<String>, modifier: Modifier) {
     )
 
     LazyColumn(modifier = modifier) {
-        items(items = textList, key = { it.hashCode() }) { text ->
+        items(items = textList) { text ->
             InputTextItem(text = text)
         }
     }
@@ -120,6 +120,6 @@ fun InputTextItem(text: String) {
 @Composable
 fun Preview() {
     Compose101Theme(darkTheme = false) {
-        ReverseTextScreen()
+        ReverseTextScreen(ReverseTextViewModel())
     }
 }
