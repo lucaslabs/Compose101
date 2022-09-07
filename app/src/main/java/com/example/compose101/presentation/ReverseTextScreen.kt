@@ -23,9 +23,14 @@ import com.example.compose101.presentation.theme.Large
 import com.example.compose101.presentation.theme.Medium
 import com.example.compose101.presentation.theme.Small
 
+// Composable functions are the fundamental building blocks of an application built with Compose.
 @Composable
 fun ReverseTextScreen(viewModel: ReverseTextViewModel) {
     Column(modifier = Modifier.fillMaxSize()) {
+
+        // Starts observing this LiveData and represents its values via State.
+        // Every time there would be new value posted into the LiveData
+        // the returned State will be updated causing recomposition of every State.value usage.
         val reversedTextState: State<String> = viewModel.reversedText.observeAsState("")
 
         val inputTextListState: State<List<String>> =
@@ -50,10 +55,15 @@ fun ReverseTextScreen(viewModel: ReverseTextViewModel) {
 
 @Composable
 fun ReversedTextSection(
-    text: String,
-    onTextValueChange: (String) -> Unit,
+    text: String, // State
+    onTextValueChange: (String) -> Unit, // Handles state changes
     modifier: Modifier,
 ) {
+
+    // 1. remember is a composable that returns the value produced during the composition.
+    // During recomposition, it will always return the value produced by composition.
+    // 2. mutableStateOf is an observable value and updates to this variable
+    // will redraw all the composable functions that access it.
     var inputTextState: String by remember { mutableStateOf(value = "") }
 
     Text(
