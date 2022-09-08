@@ -3,5 +3,6 @@
     <string name="read_more_at">Read more at</string>
     <string name="enter_text">Enter text</string>
     <string name="reverse_text">Reverse text</string>
+    <string name="reversed_text">Reversed text: %s</string>
     <string name="reversed_text_list">Reversed text list</string>
 </resources>

@@ -11,10 +11,12 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.compose101.R
 import com.example.compose101.presentation.theme.Compose101Theme
@@ -29,22 +31,25 @@ import com.example.compose101.presentation.theme.Small
 fun ReverseTextScreen(viewModel: ReverseTextViewModel) {
     Column(modifier = Modifier.fillMaxSize()) {
 
-        // Starts observing this StateList and represents its values via State.
-        // Every time there would be new value posted into the StateList
+        // Starts observing this LiveData and represents its values via State.
+        // Every time there would be new value posted into the LiveData
         // the returned State will be updated causing recomposition of every State value usage.
-        val reversedTextList: SnapshotStateList<String> = viewModel.reversedTextList
+        val reversedTextState: State<String> = viewModel.reversedText.observeAsState(initial = "")
+
+        val reversedTextStateList: SnapshotStateList<String> = viewModel.reversedTextList
 
         val paddingModifier = Modifier
             .padding(horizontal = Large, vertical = Medium)
             .fillMaxWidth()
 
         ReversedTextSection(
+            reversedText = reversedTextState.value,
             onClick = { viewModel.onReverseText(it) },
             modifier = paddingModifier
         )
 
         InputTextListSection(
-            textList = reversedTextList,
+            textList = reversedTextStateList,
             modifier = paddingModifier
         )
     }
@@ -52,8 +57,9 @@ fun ReverseTextScreen(viewModel: ReverseTextViewModel) {
 
 @Composable
 fun ReversedTextSection(
+    reversedText: String,
     onClick: (String) -> Unit,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     // This is a Composable with a state, aka, Stateful Composable
     // because it's holding its own state within its body function.
@@ -78,10 +84,19 @@ fun ReversedTextSection(
     ) {
         Text(text = stringResource(id = R.string.reverse_text))
     }
+
+    Text(
+        text = stringResource(id = R.string.reversed_text, reversedText),
+        fontWeight = FontWeight.Bold,
+        modifier = modifier
+    )
 }
 
 @Composable
-fun InputTextListSection(textList: List<String>, modifier: Modifier) {
+fun InputTextListSection(
+    textList: List<String>,
+    modifier: Modifier,
+) {
     // This is a Composable without a state, aka, Stateless Composable
     // because it's receiving a state (textList) as parameter.
     // It also could receive a parameter/lambda to handle the state changes.

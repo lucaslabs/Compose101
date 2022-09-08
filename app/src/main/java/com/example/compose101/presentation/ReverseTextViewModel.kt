@@ -9,11 +9,17 @@ import androidx.lifecycle.ViewModel
 // ViewModel that holds the state of the Composable(s)
 class ReverseTextViewModel : ViewModel() {
 
-    // StateList that holds the list of reversed text values
+    // LiveData that holds the last reversed text value
+    private val _reversedText = MutableLiveData<String>()
+    val reversedText: LiveData<String> = _reversedText
+
+    // StateList that holds a list of reversed text values
     private val _reversedTextList = mutableStateListOf<String>()
     val reversedTextList: SnapshotStateList<String> = _reversedTextList
 
     fun onReverseText(text: String) {
-        _reversedTextList.add(text.reversed())
+        val reverseStr = text.reversed()
+        _reversedText.value = reverseStr
+        _reversedTextList.add(reverseStr)
     }
 }
