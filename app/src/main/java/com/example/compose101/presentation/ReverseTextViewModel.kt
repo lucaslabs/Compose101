@@ -1,26 +1,19 @@
 package com.example.compose101.presentation
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+// ViewModel that holds the state of the Composable(s)
 class ReverseTextViewModel : ViewModel() {
 
-    // LiveData to hold reversedText value
-    private val _reversedText = MutableLiveData<String>()
-    val reversedText: LiveData<String> = _reversedText
+    // StateList that holds the list of reversed text values
+    private val _reversedTextList = mutableStateListOf<String>()
+    val reversedTextList: SnapshotStateList<String> = _reversedTextList
 
-    // LiveData to hold the list of input text value
-    private val _inputTextList = MutableLiveData<List<String>>()
-    val inputTextList: LiveData<List<String>> = _inputTextList
-
-    // Mutable list to allow adding new input text values
-    private val textList = mutableListOf<String>()
-
-    fun onTextValueChange(text: String) {
-        textList.add(text)
-        _inputTextList.value = textList
-
-        _reversedText.value = text.reversed()
+    fun onReverseText(text: String) {
+        _reversedTextList.add(text.reversed())
     }
 }

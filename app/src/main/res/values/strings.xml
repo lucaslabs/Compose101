@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Compose101</string>
     <string name="read_more_at">Read more at</string>
-    <string name="reversed_text">Reversed text: %s</string>
     <string name="enter_text">Enter text</string>
     <string name="reverse_text">Reverse text</string>
-    <string name="original_input_list">Original input list</string>
+    <string name="reversed_text_list">Reversed text list</string>
 </resources>
