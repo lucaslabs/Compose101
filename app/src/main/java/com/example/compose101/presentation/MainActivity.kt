@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Preview(showBackground = true)
+    // TODO Show a preview
     @Composable
     fun Preview() {
         ClickTheButton()
