@@ -1,4 +1,4 @@
-package com.example.compose101.presentation
+package com.example.compose101.presentation.feature.reversetext
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList

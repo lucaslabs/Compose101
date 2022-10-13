@@ -1,4 +1,4 @@
-package com.example.compose101.presentation
+package com.example.compose101.presentation.feature.reversetext
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
