@@ -14,8 +14,8 @@ class MyFirstComposableViewModel : ViewModel() {
 
     val intent = Channel<Intent>(Channel.UNLIMITED)
 
-    private val _state = MutableStateFlow<State>(State.Counter(value = 0))
-    val state: StateFlow<State> = _state
+    var state = MutableStateFlow<State>(State.Counter(value = 0))
+        private set
 
     private var increment = 0
 
@@ -36,7 +36,7 @@ class MyFirstComposableViewModel : ViewModel() {
     private fun incrementCounter() {
         viewModelScope.launch {
             // TODO data class for the state to call update fun?
-            _state.value = State.Counter(++increment)
+            state.value = State.Counter(++increment)
         }
     }
 }
