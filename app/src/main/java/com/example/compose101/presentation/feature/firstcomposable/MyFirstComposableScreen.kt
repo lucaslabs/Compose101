@@ -17,12 +17,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MyFirstComposableScreen(viewModel: MyFirstComposableViewModel) {
-    val state = viewModel.state.collectAsState()
+    val state = viewModel.state
 
     val scope = rememberCoroutineScope()
 
     MyFirstComposable(
-        state = state.value,
+        state = state,
         onValueChanged = {
             scope.launch {
                 viewModel.intent.send(Intent.OnButtonClicked)

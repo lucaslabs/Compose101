@@ -1,5 +1,8 @@
 package com.example.compose101.presentation.feature.firstcomposable
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.compose101.presentation.feature.firstcomposable.mvi.Intent
@@ -14,7 +17,7 @@ class MyFirstComposableViewModel : ViewModel() {
 
     val intent = Channel<Intent>(Channel.UNLIMITED)
 
-    var state = MutableStateFlow<State>(State.Counter(value = 0))
+    var state by mutableStateOf(State.Counter(value = 0))
         private set
 
     private var increment = 0
@@ -35,8 +38,9 @@ class MyFirstComposableViewModel : ViewModel() {
 
     private fun incrementCounter() {
         viewModelScope.launch {
-            // TODO data class for the state to call update fun?
-            state.value = State.Counter(++increment)
+            state = state.copy(
+                value = ++increment
+            )
         }
     }
 }
